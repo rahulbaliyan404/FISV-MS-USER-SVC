@@ -17,7 +17,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
+//demo2 changes
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable int id) {
         User user = userService.getUserById(id);
