@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: user-service
+
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+
+      config:
+        enabled: false
+
+      discovery:
+        service-name: user-service
+        health-check-path: /actuator/health
+        prefer-ip-address: true
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres_db
+    username: postgres
+    password: root
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/liquibase/master.xml
+
+server:
+  port: 8001
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
