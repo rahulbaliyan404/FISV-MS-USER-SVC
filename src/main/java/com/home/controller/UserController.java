@@ -18,6 +18,8 @@ public class UserController {
         this.userService = userService;
     }
 //demo2 changes
+
+// This is new testing commit.
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable int id) {
         User user = userService.getUserById(id);
