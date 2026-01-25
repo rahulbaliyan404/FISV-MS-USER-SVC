@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!-- 1. ROLES -->
+    <changeSet id="001-create-roles-table" author="rahul">
+        <createTable tableName="roles">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="role_name" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="description" type="VARCHAR(200)"/>
+
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 2. PERMISSIONS -->
+    <changeSet id="002-create-permissions-table" author="rahul">
+        <createTable tableName="permissions">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="permission_name" type="VARCHAR(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+
+            <column name="description" type="VARCHAR(200)"/>
+        </createTable>
+    </changeSet>
+
+    <!-- 3. USER_ROLES -->
+    <changeSet id="003-create-user-roles-table" author="rahul">
+        <createTable tableName="user_roles">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey
+                tableName="user_roles"
+                columnNames="user_id, role_id"
+                constraintName="pk_user_roles"/>
+
+        <addForeignKeyConstraint
+                baseTableName="user_roles"
+                baseColumnNames="user_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_user_roles_user"/>
+
+        <addForeignKeyConstraint
+                baseTableName="user_roles"
+                baseColumnNames="role_id"
+                referencedTableName="roles"
+                referencedColumnNames="id"
+                constraintName="fk_user_roles_role"/>
+    </changeSet>
+
+    <!-- 4. ROLE_PERMISSIONS -->
+    <changeSet id="004-create-role-permissions-table" author="rahul">
+        <createTable tableName="role_permissions">
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="permission_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey
+                tableName="role_permissions"
+                columnNames="role_id, permission_id"
+                constraintName="pk_role_permissions"/>
+
+        <addForeignKeyConstraint
+                baseTableName="role_permissions"
+                baseColumnNames="role_id"
+                referencedTableName="roles"
+                referencedColumnNames="id"
+                constraintName="fk_role_permissions_role"/>
+
+        <addForeignKeyConstraint
+                baseTableName="role_permissions"
+                baseColumnNames="permission_id"
+                referencedTableName="permissions"
+                referencedColumnNames="id"
+                constraintName="fk_role_permissions_permission"/>
+    </changeSet>
+
+</databaseChangeLog>

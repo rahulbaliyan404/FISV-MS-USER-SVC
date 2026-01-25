@@ -3,9 +3,7 @@ package com.home.entity;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -22,6 +20,9 @@ public class UserEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "email")
     private String email;
 
@@ -34,6 +35,14 @@ public class UserEntity {
             orphanRemoval = true
     )
     private List<AddressEntity> addresses = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<RolesEntity> roles ;
 
     @Column(name = "created_by")
     private String createdBy;
@@ -49,13 +58,15 @@ public class UserEntity {
 
     public UserEntity() {
     }
-    public UserEntity(Long id, String firstName, String lastName, String email, boolean activated, List<AddressEntity> addresses, String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate) {
+    public UserEntity(Long id, String firstName, String lastName, String email, boolean activated, List<AddressEntity> addresses,
+                      Set<RolesEntity> roles ,String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.activated = activated;
         this.addresses = addresses;
+        this.roles  = roles ;
         this.createdBy = createdBy;
         this.createdDate = createdDate;
         this.lastModifiedBy = lastModifiedBy;
@@ -140,5 +151,21 @@ public class UserEntity {
 
     public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<RolesEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RolesEntity> roles) {
+        this.roles = roles;
     }
 }

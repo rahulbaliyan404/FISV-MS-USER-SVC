@@ -26,4 +26,13 @@
             <column name="last_modified_date" type="timestamp"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="20260118-1" author="Rahul" labels="26.0.1" dbms="PostgreSQL" context="user-service">
+        <addColumn tableName="users">
+            <column name="password" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

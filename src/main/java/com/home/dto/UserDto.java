@@ -2,14 +2,17 @@ package com.home.dto;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 public class UserDto {
     private long id;
     private String firstName;
     private String lastName;
+    private String password;
     private String email;
     private boolean activated;
     private List<AddressDto> addresses;
+    private Set<RolesDto> roles;
     private String createdBy;
     private Instant createdDate;
     private String lastModifiedBy;
@@ -17,13 +20,16 @@ public class UserDto {
 
     public UserDto() {
     }
-    public UserDto(long id, String firstName, String lastName, String email, boolean activated, List<AddressDto> addresses, String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate) {
+    public UserDto(long id, String firstName, String lastName, String password, String email, boolean activated, List<AddressDto> addresses,
+                   Set<RolesDto> roles , String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
         this.email = email;
         this.activated = activated;
         this.addresses = addresses;
+        this.roles = roles;
         this.createdBy = createdBy;
         this.createdDate = createdDate;
         this.lastModifiedBy = lastModifiedBy;
@@ -108,5 +114,21 @@ public class UserDto {
 
     public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<RolesDto> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RolesDto> roles) {
+        this.roles = roles;
     }
 }

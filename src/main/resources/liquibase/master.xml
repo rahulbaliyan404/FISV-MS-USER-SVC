@@ -7,4 +7,5 @@
 
     <include file="/liquibase/changelog/20260118_user.xml" relativeToChangelogFile="false"/>
     <include file="/liquibase/changelog/20260125_address.xml" relativeToChangelogFile="false"/>
+    <include file="/liquibase/changelog/001-create_rbac_tables.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
