@@ -18,8 +18,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUser(@PathVariable int id) {
+    @GetMapping("/user/{id}")
+    public ResponseEntity<UserDto> getUser(@PathVariable int id, @RequestHeader(value = "Authorization", required = false) String authorization) {
+
+        String token = null;
+        if (authorization != null) {
+            if (authorization.startsWith("Bearer ")) {
+                token = authorization.substring(7);
+            } else {
+                token = authorization;
+            }
+        }
+        System.out.println("Token: " + token);
+
         UserDto user = userService.getUserById(id);
         if (user == null) {
             return ResponseEntity.notFound().build();
