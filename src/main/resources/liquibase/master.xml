@@ -6,4 +6,5 @@
     https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <include file="/liquibase/changelog/20260118_user.xml" relativeToChangelogFile="false"/>
+    <include file="/liquibase/changelog/20260125_address.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

@@ -1,29 +1,29 @@
 package com.home.dto;
 
 import java.time.Instant;
+import java.util.List;
 
-public class User {
-// Test Change.
+public class UserDto {
     private long id;
     private String firstName;
     private String lastName;
     private String email;
-    private boolean activated = false;
+    private boolean activated;
+    private List<AddressDto> addresses;
     private String createdBy;
     private Instant createdDate;
     private String lastModifiedBy;
     private Instant lastModifiedDate;
 
-    public User() {
+    public UserDto() {
     }
-
-    public User(long id, String firstName, String lastName, String email, boolean activated,
-                String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate) {
+    public UserDto(long id, String firstName, String lastName, String email, boolean activated, List<AddressDto> addresses, String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.activated = activated;
+        this.addresses = addresses;
         this.createdBy = createdBy;
         this.createdDate = createdDate;
         this.lastModifiedBy = lastModifiedBy;
@@ -70,6 +70,14 @@ public class User {
         this.activated = activated;
     }
 
+    public List<AddressDto> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<AddressDto> addresses) {
+        this.addresses = addresses;
+    }
+
     public String getCreatedBy() {
         return createdBy;
     }
@@ -78,11 +86,11 @@ public class User {
         this.createdBy = createdBy;
     }
 
-    public java.time.Instant getCreatedDate() {
+    public Instant getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(java.time.Instant createdDate) {
+    public void setCreatedDate(Instant createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -94,11 +102,11 @@ public class User {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public java.time.Instant getLastModifiedDate() {
+    public Instant getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(java.time.Instant lastModifiedDate) {
+    public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 }

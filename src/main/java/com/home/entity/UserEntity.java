@@ -3,6 +3,8 @@ package com.home.entity;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +28,13 @@ public class UserEntity {
     @Column(name = "activated")
     private boolean activated = false;
 
+    @OneToMany(
+            mappedBy = "user",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            orphanRemoval = true
+    )
+    private List<AddressEntity> addresses = new ArrayList<>();
+
     @Column(name = "created_by")
     private String createdBy;
 
@@ -40,14 +49,13 @@ public class UserEntity {
 
     public UserEntity() {
     }
-
-    public UserEntity(Long id, String firstName, String lastName, String email, boolean activated,
-                      String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate) {
+    public UserEntity(Long id, String firstName, String lastName, String email, boolean activated, List<AddressEntity> addresses, String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.activated = activated;
+        this.addresses = addresses;
         this.createdBy = createdBy;
         this.createdDate = createdDate;
         this.lastModifiedBy = lastModifiedBy;
@@ -94,6 +102,14 @@ public class UserEntity {
         this.activated = activated;
     }
 
+    public List<AddressEntity> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<AddressEntity> addresses) {
+        this.addresses = addresses;
+    }
+
     public String getCreatedBy() {
         return createdBy;
     }
@@ -124,34 +140,5 @@ public class UserEntity {
 
     public void setLastModifiedDate(Instant lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UserEntity that = (UserEntity) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "UserEntity{" +
-                "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", activated=" + activated +
-                ", createdBy='" + createdBy + '\'' +
-                ", createdDate=" + createdDate +
-                ", lastModifiedBy='" + lastModifiedBy + '\'' +
-                ", lastModifiedDate=" + lastModifiedDate +
-                '}';
     }
 }
